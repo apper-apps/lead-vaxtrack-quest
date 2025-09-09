@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
 import TableHeader from "@/components/molecules/TableHeader";
-import Badge from "@/components/atoms/Badge";
 import Input from "@/components/atoms/Input";
-import Button from "@/components/atoms/Button";
+import Badge from "@/components/atoms/Badge";
+import Select from "@/components/atoms/Select";
 import Card from "@/components/atoms/Card";
+import Button from "@/components/atoms/Button";
 import { cn } from "@/utils/cn";
-import { formatDate, getDaysUntilExpiration, getExpirationStatus } from "@/utils/dateUtils";
 import { getStockStatus } from "@/utils/vaccineUtils";
+import { formatDate, getDaysUntilExpiration, getExpirationStatus } from "@/utils/dateUtils";
 
 const VaccineTable = ({ 
   vaccines = [], 
@@ -263,15 +264,30 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
                   </div>
                 </td>
 <td className="px-6 py-4 whitespace-nowrap">
-                  {isFieldEditing(vaccine.Id, 'genericName') ? (
+{isFieldEditing(vaccine.Id, 'genericName') ? (
                     <div className="flex items-center space-x-2">
-                      <Input
-                        type="text"
+                      <Select
                         value={getFieldValue(vaccine.Id, 'genericName')}
-                        onChange={(e) => handleFieldChange(vaccine.Id, 'genericName', e.target.value)}
-                        className="w-32 text-sm"
+                        onChange={(value) => handleFieldChange(vaccine.Id, 'genericName', value)}
+                        className="w-40 text-sm"
                         size="sm"
-                      />
+                      >
+                        <option value="">Select generic name</option>
+                        <option value="DTaP-IPV-Hib">DTaP-IPV-Hib</option>
+                        <option value="DTaP-IPV">DTaP-IPV</option>
+                        <option value="Influenza Vaccine">Influenza Vaccine</option>
+                        <option value="HPV9">HPV9</option>
+                        <option value="HepA 2dose">HepA 2dose</option>
+                        <option value="IPV">IPV</option>
+                        <option value="MMR">MMR</option>
+                        <option value="MMRV">MMRV</option>
+                        <option value="MenACWY-TT">MenACWY-TT</option>
+                        <option value="MenB-4C_2Dose">MenB-4C_2Dose</option>
+                        <option value="PCV15">PCV15</option>
+                        <option value="RotaVirus">RotaVirus</option>
+                        <option value="Tdap">Tdap</option>
+                        <option value="Var">Var</option>
+                      </Select>
                       <Button
                         variant="accent"
                         size="sm"
