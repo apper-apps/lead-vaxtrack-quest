@@ -2,7 +2,7 @@
   {
     "Id": 1,
     "commercialName": "Daptacel SDV",
-    "genericName": "DTaP",
+"genericName": "DTaP-IPV-Hib",
     "lotNumber": "3CA03C3",
     "quantity": 1,
     "expirationDate": "2025-09-30",
@@ -13,7 +13,7 @@
   {
     "Id": 2,
     "commercialName": "Quadracel PFS",
-    "genericName": "DTaP-IPV",
+"genericName": "DTaP-IPV",
     "lotNumber": "U7908AA",
     "quantity": 18,
     "expirationDate": "2025-10-03",
@@ -24,7 +24,7 @@
   {
     "Id": 3,
     "commercialName": "IPOL MDV",
-    "genericName": "IPV",
+"genericName": "IPV",
     "lotNumber": "W1C741M",
     "quantity": 5,
     "expirationDate": "2025-11-11",
@@ -79,7 +79,7 @@
   {
     "Id": 8,
     "commercialName": "MMR II SDV",
-    "genericName": "MMR",
+"genericName": "MMR",
     "lotNumber": "Y014095",
     "quantity": 1,
     "expirationDate": "2026-09-19",
@@ -112,7 +112,7 @@
   {
     "Id": 11,
     "commercialName": "Adacel PFS",
-    "genericName": "Tdap",
+"genericName": "Tdap",
     "lotNumber": "4CA04C1",
     "quantity": 16,
     "expirationDate": "2026-10-20",
@@ -123,7 +123,7 @@
   {
     "Id": 12,
     "commercialName": "Varivax SDV",
-    "genericName": "Varicella",
+"genericName": "Var",
     "lotNumber": "Y017914",
     "quantity": 2,
     "expirationDate": "2028-10-28",
@@ -134,7 +134,7 @@
   {
     "Id": 13,
     "commercialName": "Varivax SDV",
-    "genericName": "Varicella",
+"genericName": "Var",
     "lotNumber": "Z004454",
     "quantity": 10,
     "expirationDate": "2027-02-13",
@@ -145,7 +145,7 @@
   {
     "Id": 14,
     "commercialName": "MenQuadFi SDV",
-    "genericName": "MCV4",
+"genericName": "MenACWY-TT",
     "lotNumber": "U8494AA",
     "quantity": 18,
     "expirationDate": "2028-06-20",
@@ -156,7 +156,7 @@
   {
     "Id": 15,
     "commercialName": "Bexsero PFS",
-    "genericName": "MenB",
+"genericName": "MenB-4C_2Dose",
     "lotNumber": "CD44A",
     "quantity": 4,
     "expirationDate": "2028-03-31",
@@ -167,7 +167,7 @@
   {
     "Id": 16,
     "commercialName": "Vaqta PFS",
-    "genericName": "Hep A",
+"genericName": "HepA 2dose",
     "lotNumber": "Y014585",
     "quantity": 2,
     "expirationDate": "2026-02-01",
@@ -178,7 +178,7 @@
   {
     "Id": 17,
     "commercialName": "Vaqta PFS",
-    "genericName": "Hep A",
+"genericName": "HepA 2dose",
     "lotNumber": "Y015910",
     "quantity": 20,
     "expirationDate": "2026-02-06",
@@ -189,7 +189,7 @@
   {
     "Id": 18,
     "commercialName": "Pentacel SDV",
-    "genericName": "DTaP-IPV-Hib",
+"genericName": "DTaP-IPV-Hib",
     "lotNumber": "UK329AA",
     "quantity": 6,
     "expirationDate": "2026-07-20",
@@ -200,7 +200,7 @@
   {
     "Id": 19,
     "commercialName": "Gardasil PFS",
-    "genericName": "HPV",
+"genericName": "HPV9",
     "lotNumber": "Y013768",
     "quantity": 11,
     "expirationDate": "2027-02-12",
@@ -211,7 +211,7 @@
   {
     "Id": 20,
     "commercialName": "Proquad SDV",
-    "genericName": "MMRV",
+"genericName": "MMRV",
     "lotNumber": "Y019176",
     "quantity": 1,
     "expirationDate": "2026-05-18",
@@ -222,7 +222,7 @@
   {
     "Id": 21,
     "commercialName": "Proquad SDV",
-    "genericName": "MMRV",
+"genericName": "MMRV",
     "lotNumber": "Z007581",
     "quantity": 20,
     "expirationDate": "2026-10-12",
@@ -233,7 +233,7 @@
   {
     "Id": 22,
     "commercialName": "Rotateq Oral Applicator",
-    "genericName": "RV (Rotavirus)",
+"genericName": "RotaVirus",
     "lotNumber": "Y018378",
     "quantity": 25,
     "expirationDate": "2026-05-10",
@@ -244,7 +244,7 @@
   {
     "Id": 23,
     "commercialName": "Rotateq Oral Applicator",
-    "genericName": "RV (Rotavirus)",
+"genericName": "RotaVirus",
     "lotNumber": "Y014321",
     "quantity": 6,
     "expirationDate": "2026-05-01",
@@ -255,7 +255,7 @@
   {
     "Id": 24,
     "commercialName": "Vaxelis PFS",
-    "genericName": "DTaP-IPV-Hib-Hep B",
+"genericName": "DTaP-IPV-Hib-Hep B",
     "lotNumber": "U7788AA",
     "quantity": 18,
     "expirationDate": "2026-06-08",
@@ -266,7 +266,7 @@
   {
     "Id": 25,
     "commercialName": "Vaxelis PFS",
-    "genericName": "DTaP-IPV-Hib-Hep B",
+"genericName": "DTaP-IPV-Hib-Hep B",
     "lotNumber": "U7767AA",
     "quantity": 10,
     "expirationDate": "2026-05-26",
@@ -277,7 +277,7 @@
   {
     "Id": 26,
     "commercialName": "Vaxneuvance (PCV15) PFS",
-    "genericName": "PCV15",
+"genericName": "PCV15",
     "lotNumber": "Y019380",
     "quantity": 13,
     "expirationDate": "2027-05-28",
