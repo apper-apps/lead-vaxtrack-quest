@@ -367,14 +367,33 @@ const handleInputChange = (field, value) => {
                     placeholder="e.g., Daptacel SDV"
                   />
                   
-                  <FormField
+<FormField
                     label="Generic Name"
                     required
-                    value={formData.genericName}
-                    onChange={(e) => handleInputChange("genericName", e.target.value)}
                     error={errors.genericName}
-                    placeholder="e.g., DTaP"
-                  />
+                  >
+                    <Select
+                      value={formData.genericName}
+                      onChange={(e) => handleInputChange("genericName", e.target.value)}
+                      variant={errors.genericName ? "error" : "default"}
+                    >
+                      <option value="">Select generic name</option>
+                      <option value="DTaP-IPV-Hib">DTaP-IPV-Hib</option>
+                      <option value="DTaP-IPV">DTaP-IPV</option>
+                      <option value="Influenza Vaccine">Influenza Vaccine</option>
+                      <option value="HPV9">HPV9</option>
+                      <option value="HepA 2dose">HepA 2dose</option>
+                      <option value="IPV">IPV</option>
+                      <option value="MMR">MMR</option>
+                      <option value="MMRV">MMRV</option>
+                      <option value="MenACWY-TT">MenACWY-TT</option>
+                      <option value="MenB-4C_2Dose">MenB-4C_2Dose</option>
+                      <option value="PCV15">PCV15</option>
+                      <option value="RotaVirus">RotaVirus</option>
+                      <option value="Tdap">Tdap</option>
+                      <option value="Var">Var</option>
+                    </Select>
+                  </FormField>
                 </div>
               )}
               

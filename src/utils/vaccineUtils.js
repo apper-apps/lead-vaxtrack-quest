@@ -1,4 +1,3 @@
-import React from "react";
 import Error from "@/components/ui/Error";
 export const getStockStatus = (quantityOnHand, lowStockThreshold = 5) => {
   if (quantityOnHand === 0) return "out-of-stock";
