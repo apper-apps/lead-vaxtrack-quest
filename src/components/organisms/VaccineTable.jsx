@@ -33,7 +33,8 @@ const handleFieldEdit = (vaccineId, fieldName, currentValue) => {
       'lotNumber': 'Lot Number',
       'expirationDate': 'Expiration Date', 
       'receivedDate': 'Received Date',
-      'quantityOnHand': 'Quantity On Hand'
+      'quantityOnHand': 'Quantity On Hand',
+      'genericName': 'Generic Name'
     };
 
     setPasswordPrompt({
@@ -90,11 +91,12 @@ const handleFieldEdit = (vaccineId, fieldName, currentValue) => {
       return updated;
     });
     
-    const fieldLabels = {
+const fieldLabels = {
       'lotNumber': 'lot number',
       'expirationDate': 'expiration date', 
       'receivedDate': 'received date',
-      'quantityOnHand': 'quantity'
+      'quantityOnHand': 'quantity',
+      'genericName': 'generic name'
     };
     
     toast.success(`Updated ${fieldLabels[fieldName]} for ${vaccine.commercialName}`);
@@ -260,8 +262,44 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
                     {vaccine.commercialName}
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-600">
-                  {vaccine.genericName}
+<td className="px-6 py-4 whitespace-nowrap">
+                  {isFieldEditing(vaccine.Id, 'genericName') ? (
+                    <div className="flex items-center space-x-2">
+                      <Input
+                        type="text"
+                        value={getFieldValue(vaccine.Id, 'genericName')}
+                        onChange={(e) => handleFieldChange(vaccine.Id, 'genericName', e.target.value)}
+                        className="w-32 text-sm"
+                        size="sm"
+                      />
+                      <Button
+                        variant="accent"
+                        size="sm"
+                        onClick={() => handleSaveField(vaccine, 'genericName')}
+                      >
+                        <ApperIcon name="Check" className="h-3 w-3" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleCancelField(vaccine.Id, 'genericName')}
+                      >
+                        <ApperIcon name="X" className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center space-x-2 group">
+                      <span className="text-gray-600">{vaccine.genericName}</span>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleFieldEdit(vaccine.Id, 'genericName', vaccine.genericName)}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <ApperIcon name="Edit2" className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  )}
                 </td>
 <td className="px-6 py-4 whitespace-nowrap font-mono text-sm">
                   {isFieldEditing(vaccine.Id, 'lotNumber') ? (
