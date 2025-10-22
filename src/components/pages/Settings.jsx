@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { DatabaseExportService } from "@/services/api/DatabaseExportService";
+import { VaccineService } from "@/services/api/VaccineService";
 import ApperIcon from "@/components/ApperIcon";
 import FormField from "@/components/molecules/FormField";
 import Button from "@/components/atoms/Button";
@@ -13,6 +14,7 @@ const Settings = () => {
 const { settings, loading, importLoading } = useSelector((state) => state.settings);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
+  const [actionType, setActionType] = useState(""); // "import" or "clearInventory"
 const handleInputChange = (field, value) => {
     dispatch(updateSingleSetting({ field, value }));
   };
@@ -88,23 +90,64 @@ const handleInputChange = (field, value) => {
     } finally {
       dispatch(setLoading(false));
     }
+};
+
+  const handleClearInventory = async () => {
+    dispatch(setLoading(true));
+    
+    try {
+      toast.info("Clearing inventory...");
+      
+      // Fetch all vaccine records
+      const vaccines = await VaccineService.getAll();
+      
+      if (!vaccines || vaccines.length === 0) {
+        toast.info("No vaccines found to clear.");
+        dispatch(setLoading(false));
+        return;
+      }
+
+      // Update all vaccines with quantity fields set to 0
+      const updatePromises = vaccines.map(vaccine => 
+        VaccineService.update(vaccine.Id, {
+          quantity: 0,
+          quantityOnHand: 0,
+          administeredDoses: 0
+        })
+      );
+
+      await Promise.all(updatePromises);
+      
+      toast.success(`Inventory cleared successfully! ${vaccines.length} vaccines updated.`);
+    } catch (error) {
+      console.error('Error clearing inventory:', error);
+      toast.error("Failed to clear inventory. Please try again.");
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
 
   const handlePasswordSubmit = () => {
     if (passwordInput === "Office6700$#") {
       setShowPasswordModal(false);
       setPasswordInput("");
-      // Trigger file input
-      const fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = '.json';
-      fileInput.onchange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          handleImportDatabase(file);
-        }
-      };
-      fileInput.click();
+      
+      if (actionType === "import") {
+        // Trigger file input for database import
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = '.json';
+        fileInput.onchange = (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            handleImportDatabase(file);
+          }
+        };
+        fileInput.click();
+      } else if (actionType === "clearInventory") {
+        // Execute clear inventory operation
+        handleClearInventory();
+      }
     } else {
       toast.error("Incorrect password. Access denied.");
       setPasswordInput("");
@@ -299,7 +342,10 @@ const handleInputChange = (field, value) => {
           </p>
           <Button
             variant="outline"
-            onClick={() => setShowPasswordModal(true)}
+            onClick={() => {
+              setActionType("import");
+              setShowPasswordModal(true);
+            }}
             disabled={loading || importLoading}
             className="inline-flex items-center"
           >
@@ -317,12 +363,41 @@ const handleInputChange = (field, value) => {
           </Button>
         </div>
 
-        {/* Password Modal */}
+        <div className="mb-6">
+          <h3 className="text-lg font-medium text-gray-900 mb-2">Clear Inventory</h3>
+          <p className="text-sm text-gray-600 mb-4">
+            Reset all vaccine quantities to zero. This operation requires administrator password and cannot be undone.
+          </p>
+          <Button
+            variant="outline"
+            onClick={() => {
+              setActionType("clearInventory");
+              setShowPasswordModal(true);
+            }}
+            disabled={loading}
+            className="inline-flex items-center text-red-600 hover:text-red-700 border-red-300 hover:border-red-400"
+          >
+            {loading ? (
+              <>
+                <ApperIcon name="Loader2" className="h-4 w-4 mr-2 animate-spin" />
+                Clearing...
+              </>
+            ) : (
+              <>
+                <ApperIcon name="Trash2" className="h-4 w-4 mr-2" />
+                Clear Inventory
+              </>
+            )}
+          </Button>
+        </div>
+
+{/* Password Modal */}
         {showPasswordModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 w-96 max-w-sm mx-4">
               <h3 className="text-lg font-medium text-gray-900 mb-4">Enter Administrator Password</h3>
               <p className="text-sm text-gray-600 mb-4">
+                This operation requires administrator authentication.
               </p>
               <input
                 type="password"
@@ -339,6 +414,7 @@ const handleInputChange = (field, value) => {
                   onClick={() => {
                     setShowPasswordModal(false);
                     setPasswordInput("");
+                    setActionType("");
                   }}
                 >
                   Cancel
