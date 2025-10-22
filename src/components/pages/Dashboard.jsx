@@ -45,11 +45,14 @@ return (
         <p className="text-gray-600">Monitor your vaccine inventory and manage operations</p>
       </div>
 
-{/* Metrics Overview */}
+      {/* Metrics Overview */}
       <DashboardMetrics vaccines={vaccines} />
 
       {/* Quick Actions */}
       <QuickActions />
+
+      {/* Alerts Section */}
+      <InventoryAlerts vaccines={vaccines} />
     </div>
   );
 };

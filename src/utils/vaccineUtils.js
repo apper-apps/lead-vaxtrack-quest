@@ -20,7 +20,6 @@ export const getExpiringVaccines = (vaccines, daysThreshold = 30) => {
   
   return vaccines.filter(vaccine => {
     if (!vaccine.expirationDate) return false;
-    if (vaccine.expired_c === true) return false;
     const expDate = new Date(vaccine.expirationDate);
     return expDate > today && expDate <= thresholdDate;
   });
@@ -30,7 +29,6 @@ export const getExpiredVaccines = (vaccines) => {
   const today = new Date();
   return vaccines.filter(vaccine => {
     if (!vaccine.expirationDate) return false;
-    if (vaccine.expired_c === true) return false;
     const expDate = new Date(vaccine.expirationDate);
     return expDate < today;
   });
@@ -103,9 +101,7 @@ export const getUniqueVaccinesByName = (vaccines) => {
 export const aggregateVaccinesByName = (vaccines) => {
   const aggregatedMap = new Map();
   
-  const activeVaccines = vaccines.filter(vaccine => vaccine.expired_c !== true);
-  
-  activeVaccines.forEach(vaccine => {
+  vaccines.forEach(vaccine => {
     const key = `${vaccine.commercialName}-${vaccine.genericName}`;
     
     if (aggregatedMap.has(key)) {
