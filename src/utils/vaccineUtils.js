@@ -6,11 +6,11 @@ export const getStockStatus = (quantityOnHand, lowStockThreshold = 5) => {
 };
 
 export const calculateTotalDoses = (vaccines) => {
-  return 0;
+  return vaccines.reduce((total, vaccine) => total + (vaccine.quantityOnHand || 0), 0);
 };
 
 export const calculateAdministeredDoses = (vaccines) => {
-  return 0;
+  return vaccines.reduce((total, vaccine) => total + (vaccine.administeredDoses || 0), 0);
 };
 
 export const getExpiringVaccines = (vaccines, daysThreshold = 30) => {

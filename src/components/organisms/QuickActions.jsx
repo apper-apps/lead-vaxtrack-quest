@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ApperIcon from "@/components/ApperIcon";
+import { cn } from "@/utils/cn";
 import Button from "@/components/atoms/Button";
 import Card from "@/components/atoms/Card";
-import { cn } from "@/utils/cn";
+import ApperIcon from "@/components/ApperIcon";
 
-const QuickActions = ({ onInventoryChange, className }) => {
+const QuickActions = ({ className }) => {
   const navigate = useNavigate();
 
   const actions = [
@@ -42,12 +42,12 @@ const QuickActions = ({ onInventoryChange, className }) => {
   return (
     <Card className={cn("p-6", className)}>
       <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {actions.map((action, index) => (
           <Button
             key={index}
             variant={action.variant}
-            onClick={() => navigate(action.path, { state: { onInventoryChange } })}
+            onClick={() => navigate(action.path)}
             className="h-auto p-4 flex items-start space-x-4 text-left justify-start"
           >
             <div className="flex-shrink-0">
