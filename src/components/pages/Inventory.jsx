@@ -55,29 +55,27 @@ try {
     setFilteredVaccines(filtered);
   };
 
-  const handleUpdateVaccine = async (updatedVaccine) => {
-try {
+const handleUpdateVaccine = async (updatedVaccine) => {
+    try {
       await VaccineService.update(updatedVaccine.Id, updatedVaccine);
       
-      const updatedVaccines = vaccines.map(vaccine => 
-        vaccine.Id === updatedVaccine.Id ? updatedVaccine : vaccine
-      );
+      // Reload all vaccines to ensure accurate data and metric calculations
+      await loadVaccines();
       
-      // Filter out vaccines with zero quantity on hand
-      const filterVaccinesWithStock = (vaccines) => vaccines.filter(vaccine => vaccine.quantityOnHand > 0);
-      const vaccinesWithStock = filterVaccinesWithStock(updatedVaccines);
-      
-      setVaccines(vaccinesWithStock);
-      setFilteredVaccines(
-        searchTerm ? 
-        vaccinesWithStock.filter(vaccine => 
+      // Reapply search filter if active
+      if (searchTerm) {
+        const filtered = vaccines.filter(vaccine => 
           vaccine.commercialName?.toLowerCase().includes(searchTerm) ||
           vaccine.genericName?.toLowerCase().includes(searchTerm) ||
           vaccine.lotNumber?.toLowerCase().includes(searchTerm)
-        ) : vaccinesWithStock
-      );
+        );
+        setFilteredVaccines(filtered);
+      }
+      
+      toast.success("Vaccine updated successfully!");
     } catch (err) {
-setError("Failed to update vaccine. Please try again.");
+      setError("Failed to update vaccine. Please try again.");
+      toast.error("Failed to update vaccine. Please try again.");
     }
   };
 
