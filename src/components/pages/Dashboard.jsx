@@ -49,7 +49,7 @@ return (
       <DashboardMetrics vaccines={vaccines} />
 
       {/* Quick Actions */}
-      <QuickActions />
+<QuickActions onInventoryChange={loadVaccines} />
 
       {/* Alerts Section */}
       <InventoryAlerts vaccines={vaccines} />

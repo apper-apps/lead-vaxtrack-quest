@@ -1,21 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { DatabaseExportService } from "@/services/api/DatabaseExportService";
 import { VaccineService } from "@/services/api/VaccineService";
 import ApperIcon from "@/components/ApperIcon";
-import FormField from "@/components/molecules/FormField";
 import Button from "@/components/atoms/Button";
+import Input from "@/components/atoms/Input";
 import Card from "@/components/atoms/Card";
-import { resetSettings, setLoading, updateSettings, updateSingleSetting } from "@/store/settingsSlice";
+import Label from "@/components/atoms/Label";
+import Inventory from "@/components/pages/Inventory";
+import FormField from "@/components/molecules/FormField";
 import { exportDatabaseToJSON } from "@/utils/vaccineUtils";
+import { setImportLoading, setLoading, updateSingleSetting, resetSettings } from "@/store/settingsSlice";
+
 const Settings = () => {
   const dispatch = useDispatch();
-const { settings, loading, importLoading } = useSelector((state) => state.settings);
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const location = useLocation();
+  const onInventoryChange = location.state?.onInventoryChange;
+  const { settings, loading, importLoading } = useSelector((state) => state.settings);
   const [passwordInput, setPasswordInput] = useState("");
   const [actionType, setActionType] = useState(""); // "import" or "clearInventory"
-const handleInputChange = (field, value) => {
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+
+  const handleInputChange = (field, value) => {
     dispatch(updateSingleSetting({ field, value }));
   };
 
@@ -92,7 +100,7 @@ const handleInputChange = (field, value) => {
     }
 };
 
-  const handleClearInventory = async () => {
+const handleClearInventory = async () => {
     dispatch(setLoading(true));
     
     try {
@@ -119,6 +127,11 @@ const handleInputChange = (field, value) => {
       await Promise.all(updatePromises);
       
       toast.success(`Inventory cleared successfully! ${vaccines.length} vaccines updated.`);
+      
+      // Trigger dashboard reload if callback provided
+      if (onInventoryChange) {
+        onInventoryChange();
+      }
     } catch (error) {
       console.error('Error clearing inventory:', error);
       toast.error("Failed to clear inventory. Please try again.");
