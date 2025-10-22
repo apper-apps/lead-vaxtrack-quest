@@ -15,21 +15,28 @@ export const calculateAdministeredDoses = (vaccines) => {
 
 export const getExpiringVaccines = (vaccines, daysThreshold = 30) => {
   const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
   const thresholdDate = new Date();
   thresholdDate.setDate(today.getDate() + daysThreshold);
+  thresholdDate.setHours(0, 0, 0, 0);
   
   return vaccines.filter(vaccine => {
     if (!vaccine.expirationDate) return false;
     const expDate = new Date(vaccine.expirationDate);
+    expDate.setHours(0, 0, 0, 0);
     return expDate > today && expDate <= thresholdDate;
   });
 };
 
 export const getExpiredVaccines = (vaccines) => {
   const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
   return vaccines.filter(vaccine => {
     if (!vaccine.expirationDate) return false;
     const expDate = new Date(vaccine.expirationDate);
+    expDate.setHours(0, 0, 0, 0);
     return expDate < today;
   });
 };
